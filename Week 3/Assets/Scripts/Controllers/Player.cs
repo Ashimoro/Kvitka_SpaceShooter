@@ -23,8 +23,8 @@ public class Player : MonoBehaviour
         PlayerMovement();
         acceleration = targetSpeed / accelerationTime;
 
-        Debug.Log(velocity);
-    }
+      //  Debug.Log(velocity);
+    }   
 
 
     public void PlayerMovement()
@@ -34,22 +34,27 @@ public class Player : MonoBehaviour
                 velocity += Vector3.up * acceleration * Time.deltaTime;
         }
         
-        if (Input.GetKey("a") && velocity.x >= -targetSpeed)
+        else if (Input.GetKey("a") && velocity.x >= -targetSpeed)
         {
             velocity += Vector3.left * acceleration * Time.deltaTime;
         }     
         
-        if (Input.GetKey("s") && velocity.y >= -targetSpeed)
+        else if (Input.GetKey("s") && velocity.y >= -targetSpeed)
         {
             velocity += Vector3.down * acceleration * Time.deltaTime;
-        }   
-        
-        if (Input.GetKey("d") && velocity.x <= targetSpeed)
+        }
+
+        else if (Input.GetKey("d") && velocity.x <= targetSpeed)
         {
             velocity += Vector3.right * acceleration * Time.deltaTime;
-        }        
+        } 
         
-        transform.position += velocity.normalized * Time.deltaTime;
+        else if (!Input.GetKey("a") && !Input.GetKey("w") && !Input.GetKey("s") && !Input.GetKey("d"))
+        {
+            velocity -= velocity * Time.deltaTime;
+        }
+        transform.position += velocity * Time.deltaTime;
+
 
 
     }
