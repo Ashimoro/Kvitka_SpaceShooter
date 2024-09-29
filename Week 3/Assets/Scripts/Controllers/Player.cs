@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class Player : MonoBehaviour
     private float accelerationTime = 3f;
     private float targetSpeed = 2f;
 
+    public float radius = 1f;
+    public int circlePoints = 8;
+
+    int currentPoints = 0;
+
     private void Start()
     {
     }
@@ -22,6 +28,8 @@ public class Player : MonoBehaviour
     {
         PlayerMovement();
         acceleration = targetSpeed / accelerationTime;
+        EnemyRadar(radius, circlePoints);
+
 
       //  Debug.Log(velocity);
     }   
@@ -58,4 +66,28 @@ public class Player : MonoBehaviour
 
 
     }
+
+    public void EnemyRadar(float radius, int circlePoints)
+    {
+        Vector3[] points = new Vector3[circlePoints];
+        points[0] = new Vector3 (transform.position.x, transform.position.y + radius);
+        points[1] = new Vector3 (transform.position.x + radius, transform.position.y + radius);
+        points[2] = new Vector3 (transform.position.x + radius, transform.position.y);
+        points[3] = new Vector3 (transform.position.x + radius, transform.position.y - radius);
+        points[4] = new Vector3 (transform.position.x, transform.position.y - radius);
+        points[5] = new Vector3 (transform.position.x - radius, transform.position.y - radius);
+        points[6] = new Vector3 (transform.position.x - radius, transform.position.y);
+        points[7] = new Vector3 (transform.position.x - radius, transform.position.y + radius);
+
+        foreach (var point in points)
+        {
+            Debug.DrawLine(transform.position, point);
+        }
+
+
+
+
+    }
+
+
 }
