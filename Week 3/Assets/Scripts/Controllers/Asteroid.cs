@@ -37,7 +37,7 @@ public class Asteroid : MonoBehaviour
         xCord = Random.Range(0, maxFloatDistance);
         yCord = Random.Range(0, maxFloatDistance);
 
-        Debug.Log(xCord + " " + yCord);
+        //Debug.Log(xCord + " " + yCord);
         
         arrivalPoint = new Vector3(transform.position.x + xCord, transform.position.y + yCord);
 

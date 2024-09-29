@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -16,11 +17,6 @@ public class Player : MonoBehaviour
     private float accelerationTime = 3f;
     private float targetSpeed = 2f;
 
-    public float radius = 1f;
-    public int circlePoints = 8;
-
-    int currentPoints = 0;
-
     private void Start()
     {
     }
@@ -28,7 +24,7 @@ public class Player : MonoBehaviour
     {
         PlayerMovement();
         acceleration = targetSpeed / accelerationTime;
-        EnemyRadar(radius, circlePoints);
+        EnemyRadar(2, 8);
 
 
       //  Debug.Log(velocity);
@@ -69,23 +65,42 @@ public class Player : MonoBehaviour
 
     public void EnemyRadar(float radius, int circlePoints)
     {
-        Vector3[] points = new Vector3[circlePoints];
-        points[0] = new Vector3 (transform.position.x, transform.position.y + radius);
-        points[1] = new Vector3 (transform.position.x + radius, transform.position.y + radius);
-        points[2] = new Vector3 (transform.position.x + radius, transform.position.y);
-        points[3] = new Vector3 (transform.position.x + radius, transform.position.y - radius);
-        points[4] = new Vector3 (transform.position.x, transform.position.y - radius);
-        points[5] = new Vector3 (transform.position.x - radius, transform.position.y - radius);
-        points[6] = new Vector3 (transform.position.x - radius, transform.position.y);
-        points[7] = new Vector3 (transform.position.x - radius, transform.position.y + radius);
 
-        foreach (var point in points)
+        for (int currentPoint = 0; currentPoint < circlePoints; currentPoint++)
         {
-            Debug.DrawLine(transform.position, point);
+
+            float circumference = (float)currentPoint / circlePoints;
+            float radian = circumference * 2 * Mathf.PI;
+
+            float xScaled = Mathf.Cos(radian);
+            float yScaled = Mathf.Sin(radian);
+
+            float x = xScaled * radius;
+            float y = yScaled * radius;
+
+            Vector3 endPoint = new Vector3 (transform.position.x + x, transform.position.y + y);
+            Vector3 currentPosition = new Vector3 (endPoint.x, endPoint.y);
+
+            float circumference2 = (float)currentPoint+1 / circlePoints;
+            float radian2 = circumference2 * 2 * Mathf.PI;
+
+            float xScaled2 = Mathf.Cos(radian2);
+            float yScaled2 = Mathf.Sin(radian2);
+
+            float x2 = xScaled2 * radius;
+            float y2 = yScaled2 * radius;
+
+
+            Vector3 nextEndpoint = new Vector3(transform.position.x + x2, transform.position.y + y2);
+
+            // Debug.Log(radius);
+            // Debug.Log(currentPosition + " " + nextEndpoint);
+            // Debug.Log(currentPoint);
+            // Debug.Log(nextEndpoint);
+
+
+            Debug.DrawLine(currentPosition, nextEndpoint);
         }
-
-
-
 
     }
 
