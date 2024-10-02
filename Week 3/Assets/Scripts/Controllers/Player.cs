@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+
+        SpawnPowerups(4,5);
+
     }
     void Update()
     {
@@ -26,8 +29,6 @@ public class Player : MonoBehaviour
         acceleration = targetSpeed / accelerationTime;
         EnemyRadar(2, 8);
 
-
-      //  Debug.Log(velocity);
     }   
 
 
@@ -102,6 +103,31 @@ public class Player : MonoBehaviour
             Debug.DrawLine(currentPosition, nextEndpoint);
         }
 
+    }
+
+    public void SpawnPowerups(float radius, int numberOfPowerups)
+    {
+
+            float angle = 360f / numberOfPowerups;
+
+        for (int currentNumberOfPowerups = 0; currentNumberOfPowerups < numberOfPowerups; currentNumberOfPowerups++)
+        {
+
+            float spawnPointAngle = currentNumberOfPowerups * angle;
+            float radianPowerUp = spawnPointAngle * Mathf.Deg2Rad;
+
+            float xPowerUp = Mathf.Cos(radianPowerUp);
+            float yPowerUp = Mathf.Sin(radianPowerUp);
+
+            float xScaledPowerUps = xPowerUp * radius;
+            float yScaledPowerUps = yPowerUp * radius;
+
+            Vector3 spawnPoint = new Vector3(transform.position.x + xScaledPowerUps, transform.position.y + yScaledPowerUps);
+
+            Instantiate(bombPrefab, spawnPoint, Quaternion.identity);
+            Debug.Log(currentNumberOfPowerups);
+        }
+        
     }
 
 
