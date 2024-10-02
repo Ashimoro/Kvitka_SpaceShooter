@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
             // Debug.Log(nextEndpoint);
 
 
-            Debug.DrawLine(currentPosition, nextEndpoint);
+            //Debug.DrawLine(currentPosition, nextEndpoint);
         }
 
     }
@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
             Vector3 spawnPoint = new Vector3(transform.position.x + xScaledPowerUps, transform.position.y + yScaledPowerUps);
 
             Instantiate(bombPrefab, spawnPoint, Quaternion.identity);
-            Debug.Log(currentNumberOfPowerups);
+           // Debug.Log(currentNumberOfPowerups);
         }
         
     }
