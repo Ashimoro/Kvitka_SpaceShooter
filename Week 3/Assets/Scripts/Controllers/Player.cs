@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public Transform enemyTransform;
     public GameObject bombPrefab;
     public Transform bombsTransform;
+    public GameObject missilePrefab;
 
 
     private Vector3 velocity = Vector3.zero;
@@ -29,29 +30,42 @@ public class Player : MonoBehaviour
         acceleration = targetSpeed / accelerationTime;
         EnemyRadar(2, 8);
 
+        if (Input.GetKeyDown("r"))
+        {
+            Instantiate(missilePrefab, transform.position, Quaternion.identity);
+
+        }
+
+
     }   
 
 
     public void PlayerMovement()
     {
         if (Input.GetKey("w") && velocity.y <= targetSpeed)
-        {          
-                velocity += Vector3.up * acceleration * Time.deltaTime;
+        {
+            velocity += Vector3.up * acceleration * Time.deltaTime;
+           // transform.Rotate(0, 0, 1);
+
         }
-        
+
         else if (Input.GetKey("a") && velocity.x >= -targetSpeed)
         {
             velocity += Vector3.left * acceleration * Time.deltaTime;
-        }     
-        
+          //  transform.Rotate(0, 0, -1);
+        }
+
         else if (Input.GetKey("s") && velocity.y >= -targetSpeed)
         {
             velocity += Vector3.down * acceleration * Time.deltaTime;
+         //   transform.Rotate(0, 0, -1);
         }
 
         else if (Input.GetKey("d") && velocity.x <= targetSpeed)
         {
             velocity += Vector3.right * acceleration * Time.deltaTime;
+           // transform.Rotate(0, 0, 1);
+
         } 
         
         else if (!Input.GetKey("a") && !Input.GetKey("w") && !Input.GetKey("s") && !Input.GetKey("d"))
